@@ -1,4 +1,4 @@
-var css = "time.highlight { background:red!important; color:white!important; }"
+var css = "time.highlight { background:red!important; color:white!important; }";
 var head = document.head || document.getElementsByTagName("head")[0];
 var style = document.createElement("style");
     style.type = "text/css";
