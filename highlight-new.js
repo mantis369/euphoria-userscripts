@@ -9,11 +9,17 @@ if (style.styleSheet) {
 }
 head.appendChild(style);
 
+var last_t = new Date();
+
+Heim.actions.sendMessage.listen(function() {
+    last_t = new Date();
+}); 
+
 function annotate() {
     var times = document.querySelectorAll("time");
     for (var i = 0; i < times.length; i++) {
-        var delta = ((new Date()) - (new Date(times[i].getAttribute("datetime"))));
-        times[i].className = (delta < 180000) ? "highlight" : "";
+        var delta = (last_t - (new Date(times[i].getAttribute("datetime"))));
+        times[i].className = (delta < 300000) ? "highlight" : "";
     }
 }
 
