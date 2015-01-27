@@ -1,6 +1,6 @@
 var css = [
             "time.highlight { border-right:5px #0F0 solid!important; box-sizing:border-box; }",
-            "div.counter-display { background:#0F0; border:2px green solid; color:black; font-family:monospace; font-size:14px; padding:0 2px 0 0; position:absolute; right:150px; text-align:center; top:36px; width:60px; z-index:100; }"
+            "div.counter-display { background:#0F0; border:2px green solid; color:black; font-family:monospace; font-size:14px; padding:0 2px 0 0; position:absolute; right:200px; text-align:center; top:36px; width:100px; z-index:100; }"
           ].join("\n");
 var head = document.head || document.getElementsByTagName("head")[0];
 var style = document.createElement("style");
@@ -36,6 +36,7 @@ var container = document.querySelector(".messages-container");
 function annotate(no_highlight) {
     var i, time_t, delta,
         is_new = false,
+        user_nick = Heim.chat.store.state.nick,
         scroll_top = container.scrollTop,
         screen_height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
         offset,
@@ -44,6 +45,9 @@ function annotate(no_highlight) {
         unread_count = 0,
         times = document.querySelectorAll("time");
     for (i = 0; i < times.length; i++) {
+        if (user_nick == times[i].nextSibling.textContent) {
+            continue;
+        }
         time_t = new Date(times[i].getAttribute("datetime"));
         delta = last_t - time_t;
         is_new = (delta < 60000);
