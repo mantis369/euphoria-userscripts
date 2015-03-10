@@ -1,6 +1,10 @@
 var css = [
             "time.highlight { border-right:5px #0F0 solid!important; box-sizing:border-box; }",
-            "div.counter-display { background:#0F0; border:2px green solid; color:black; font-family:monospace; font-size:14px; padding:0 2px 0 0; position:absolute; right:200px; text-align:center; top:36px; width:100px; z-index:100; }"
+            ".arrow { display:inline; width:0; height:0; margin:5px; border-left:5px transparent solid; border-right:5px transparent solid; }",
+            ".arrow-down { float:right; border-top:5px black solid; }",
+            ".arrow-up {  float:left; border-bottom:5px black solid; }",
+            "div.counter-display { background:#0F0; border:2px green solid; color:black; font-family:monospace; font-size:14px; padding:0 2px 0 0; position:absolute; right:200px; text-align:center; top:36px; width:120px; z-index:100; }",
+            "div.counter-inner { display:inline; width:100px }"
           ].join("\n");
 var head = document.head || document.getElementsByTagName("head")[0];
 var style = document.createElement("style");
@@ -18,9 +22,25 @@ Heim.actions.sendMessage.listen(function() {
     last_t = new Date();
 }); 
 
-var counter_div = document.createElement("div");
-    counter_div.className = "counter-display";
-document.body.appendChild(counter_div);    
+function newDiv(className) {
+    var div = document.createElement("div");
+    if (className) {
+        div.className = className;
+    }
+    return div;
+}
+
+var counter_div = newDiv("counter-display");
+document.body.appendChild(counter_div);
+
+var arrow_up = newDiv("arrow arrow-up"); 
+counter_div.appendChild(arrow_up);
+
+var inner_counter = newDiv("counter-inner");
+counter_div.appendChild(inner_counter);
+
+var arrow_down = newDiv("arrow arrow-down"); 
+counter_div.appendChild(arrow_down);
 
 function computeOffsetTop(element) {
     var offset = 0;
@@ -64,7 +84,7 @@ function annotate(no_highlight) {
             }
         }
     }
-    counter_div.innerHTML = [upcount, unread_count, downcount].join("|"); 
+    inner_counter.innerHTML = [upcount, unread_count, downcount].join("|"); 
 }
 
 var observer = new window.MutationObserver(function(mutations) {
