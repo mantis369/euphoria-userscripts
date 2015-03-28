@@ -14,6 +14,7 @@ for js in [f for f in os.listdir(".") if f.endswith(".js")]:
 html = """<!DOCTYPE html>
 <html>
 <head>
+    <link href="http://www.apologue.net/assets/main.css" rel="stylesheet" type="text/css"/>
     <title>bookmarklets</title>
 </head>
 <body>
